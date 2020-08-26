@@ -69,6 +69,7 @@
     <Compile Include="AI\Lords\LordToil_SiegeCustom.cs" />
     <Compile Include="Apparels\Apparel_Shield.cs" />
     <Compile Include="BaseGen\VFEResolveParams.cs" />
+    <Compile Include="Comps\PawnComp.cs" />
     <Compile Include="Comps\ThingComps\CompProperties_Shield.cs" />
     <Compile Include="Comps\ThingComps\CompShield.cs" />
     <Compile Include="Comps\WorldComponents\FactionGoodwillModifier.cs" />
