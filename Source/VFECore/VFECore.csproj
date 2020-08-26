@@ -82,6 +82,7 @@
     <Compile Include="DefOf\IncidentDefOf.cs" />
     <Compile Include="DefOf\JobDefOf.cs" />
     <Compile Include="DefOf\ScenPartDefOf.cs" />
+    <Compile Include="Defs\RenderAddonDef.cs" />
     <Compile Include="Defs\SiegeParameterSetDef.cs" />
     <Compile Include="Dialogs\FactionSpawning\Dialog_NewFactionSpawning.cs" />
     <Compile Include="Dialogs\FactionSpawning\Dialog_NewFactionSpawningSettlements.cs" />
