@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<LanguageData>
+  <HeatedFloor_HighPower>(High power)</HeatedFloor_HighPower>
+  <HeatedFloor_LowPower>(Low power)</HeatedFloor_LowPower>
+  <FloorWire_InspectStringPart>\nFloors connected: {0}.\nPower demand from floors: {1} W</FloorWire_InspectStringPart>
+</LanguageData>

@@ -64,6 +64,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActiveTerrain\ActiveTerrainUtility.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainComp_Glower.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainComp_HeatPush.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainComp_SelfClean.cs" />
+    <Compile Include="ActiveTerrain\Patches.cs" />
+    <Compile Include="ActiveTerrain\SpecialTerrain.cs" />
+    <Compile Include="ActiveTerrain\SpecialTerrainList.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainCompBase.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainCompProperties.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainComp_TempControl.cs" />
+    <Compile Include="ActiveTerrain\Comps\TerrainComps_Power.cs" />
+    <Compile Include="ActiveTerrain\ThingComps.cs" />
     <Compile Include="Furniture\Comps\CompProperties_SelectBuildingBehind.cs" />
     <Compile Include="Furniture\Comps\CompProperties_SpawnOtherBuildingWhenPowered.cs" />
     <Compile Include="Furniture\Comps\CompSelectBuildingBehind.cs" />

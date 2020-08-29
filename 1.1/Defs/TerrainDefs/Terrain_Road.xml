@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+
+	<VFECore.ActiveTerrainDef>
+		<defName>TestTerrain</defName>
+		<label>Lava floor</label>
+		<description>The floor is lava!</description>
+		<texturePath>Terrain/Lava3</texturePath>
+		<terrainInstanceClass>VFECore.TerrainInstance</terrainInstanceClass>
+		<layerable>true</layerable>
+		<edgeType>Hard</edgeType>
+		<renderPrecedence>370</renderPrecedence>
+		<pathCost>0</pathCost>
+		<resourcesFractionWhenDeconstructed>0</resourcesFractionWhenDeconstructed>
+		<statBases>
+			<WorkToBuild>1100</WorkToBuild>
+			<Beauty>-1</Beauty>
+			<Cleanliness>-1</Cleanliness>
+		</statBases>
+		<scatterType>Rocky</scatterType>
+		<affordances>
+			<li>Light</li>
+			<li>Heavy</li>
+		</affordances>
+		<fertility>0.0</fertility>
+		<costList>
+			<Steel>10</Steel>
+		</costList>
+		<designationCategory>Floors</designationCategory>
+		<terrainComps>
+			<li Class="VFECore.TerrainCompProperties_HeatPush">
+				<pushAmount>1000</pushAmount>
+			</li>
+		</terrainComps>
+	</VFECore.ActiveTerrainDef>
+
+	<VFECore.ActiveTerrainDef>
+		<defName>MetalFloorHeated</defName>
+		<label>metal tile (heated)</label>
+		<texturePath>Terrain/HeatedTile</texturePath>
+		<description>Industrial-grade heaters to heat up rooms and to melt snow outside. Default target temperature is 21C(70F), but floors will automatically conform to the first heater in the room. Consumes 40W power when active and 10W when idle.</description>
+		<terrainInstanceClass>VFECore.TerrainInstance</terrainInstanceClass>
+		<layerable>true</layerable>
+		<edgeType>Hard</edgeType>
+		<renderPrecedence>370</renderPrecedence>
+		<pathCost>0</pathCost>
+		<statBases>
+			<WorkToBuild>1100</WorkToBuild>
+			<Beauty>1</Beauty>
+		</statBases>
+		<affordances>
+			<li>Light</li>
+			<li>Heavy</li>
+		</affordances>
+		<fertility>0.0</fertility>
+		<costList>
+			<Steel>7</Steel>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<designationCategory>Floors</designationCategory>
+		<terrainComps>
+			<li Class="VFECore.TerrainCompProperties_PowerTrader">
+				<basePowerConsumption>40</basePowerConsumption>
+			</li>
+			<li Class="VFECore.TerrainCompProperties_TempControl">
+				<energyPerSecond>24</energyPerSecond>
+				<reliesOnPower>true</reliesOnPower>
+				<lowPowerConsumptionFactor>0.25</lowPowerConsumptionFactor>
+				<cleansSnow>true</cleansSnow>
+				<snowMeltAmountPerSecond>0.01</snowMeltAmountPerSecond>
+			</li>
+		</terrainComps>
+	</VFECore.ActiveTerrainDef>
+	
+	<VFECore.ActiveTerrainDef>
+		<defName>WoodFloorHeated</defName>
+		<label>wood floor (heated)</label>
+		<texturePath>Terrain/WoodHeatedFloor</texturePath>
+		<description>Pretty, heated floors to keep your room toasty, and to melt snow outside. Default target temperature is 21C(70F), but floors will automatically conform to the first heater in the room. Consumes 40W power when active and 10W when idle.</description>
+		<terrainInstanceClass>VFECore.TerrainInstance</terrainInstanceClass>
+		<layerable>true</layerable>
+		<edgeType>Hard</edgeType>
+		<renderPrecedence>370</renderPrecedence>
+		<pathCost>0</pathCost>
+		<statBases>
+			<WorkToBuild>1100</WorkToBuild>
+			<Beauty>1</Beauty>
+		</statBases>
+		<affordances>
+			<li>Light</li>
+			<li>Heavy</li>
+		</affordances>
+		<fertility>0.0</fertility>
+		<costList>
+			<WoodLog>7</WoodLog>
+			<ComponentIndustrial>1</ComponentIndustrial>
+		</costList>
+		<designationCategory>Floors</designationCategory>
+		<terrainComps>
+			<li Class="VFECore.TerrainCompProperties_PowerTrader">
+				<basePowerConsumption>20</basePowerConsumption>
+			</li>
+			<li Class="VFECore.TerrainCompProperties_TempControl">
+				<energyPerSecond>12</energyPerSecond>
+				<reliesOnPower>true</reliesOnPower>
+				<lowPowerConsumptionFactor>0.25</lowPowerConsumptionFactor>
+				<cleansSnow>true</cleansSnow>
+				<snowMeltAmountPerSecond>0.01</snowMeltAmountPerSecond>
+			</li>
+		</terrainComps>
+	</VFECore.ActiveTerrainDef>
+	
+	<VFECore.ActiveTerrainDef>
+		<defName>ForeverCleanTile</defName>
+		<label>ForeverClean(tm)</label>
+		<texturePath>Terrain/ForeverCleanTile</texturePath>
+		<description>A floor that actively cleans all blood, grime, vomit etc. in its cell. Perfect for futuristic hospitals. Note: It does not clean snow. Consumes 40W power.</description>
+		<terrainInstanceClass>VFECore.TerrainInstance</terrainInstanceClass>
+		<layerable>true</layerable>
+		<edgeType>Hard</edgeType>
+		<renderPrecedence>370</renderPrecedence>
+		<pathCost>0</pathCost>
+		<statBases>
+			<WorkToBuild>5000</WorkToBuild>
+			<Beauty>1</Beauty>
+			<Cleanliness>1.2</Cleanliness>
+		</statBases>
+		<affordances>
+			<li>Light</li>
+			<li>Heavy</li>
+		</affordances>
+		<fertility>0.0</fertility>
+		<costList>
+			<Steel>10</Steel>
+			<Silver>50</Silver>
+		</costList>
+		<designationCategory>Floors</designationCategory>
+		<terrainComps>
+			<li Class="VFECore.TerrainCompProperties_SelfClean">
+				<compClass>VFECore.TerrainComp_SelfCleanPowered</compClass>
+			</li>
+			<li Class="VFECore.TerrainCompProperties_PowerTrader">
+				<basePowerConsumption>20</basePowerConsumption>
+			</li>
+		</terrainComps>
+	</VFECore.ActiveTerrainDef>
+	
+	<VFECore.ActiveTerrainDef>
+		<defName>FloorGlowing</defName>
+		<label>glow floor</label>
+		<texturePath>Terrain/Surfaces/Sand</texturePath>
+		<description>Floors that glow. Here's the good bit - You can actually put buildings on it. Consumes 5W power.</description>
+		<terrainInstanceClass>VFECore.TerrainInstance</terrainInstanceClass>
+		<layerable>true</layerable>
+		<edgeType>Hard</edgeType>
+		<renderPrecedence>370</renderPrecedence>
+		<pathCost>0</pathCost>
+		<statBases>
+			<WorkToBuild>1100</WorkToBuild>
+			<Beauty>-1</Beauty>
+			<Cleanliness>-1</Cleanliness>
+		</statBases>
+		<affordances>
+			<li>Light</li>
+			<li>Heavy</li>
+		</affordances>
+		<fertility>0.0</fertility>
+		<costList>
+			<Steel>9</Steel>
+		</costList>
+		<designationCategory>Floors</designationCategory>
+		<terrainComps>
+			<li Class="VFECore.TerrainCompProperties_PowerTrader">
+				<basePowerConsumption>5</basePowerConsumption>
+			</li>
+			<li Class="VFECore.TerrainCompProperties_Glower">
+				<overlightRadius>0</overlightRadius>
+				<glowRadius>5</glowRadius>
+				<powered>true</powered>
+			</li>
+		</terrainComps>
+	</VFECore.ActiveTerrainDef>
+</Defs>
