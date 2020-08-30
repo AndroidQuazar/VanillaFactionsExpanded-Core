@@ -7,11 +7,14 @@ namespace VFECore.Defs
 
     public class RenderAddonDef : Def
     {
-        public List<RenderAddonLayerDef> layers;
+        public List<RenderAddonLayerDef> layers = new List<RenderAddonLayerDef>();
+
+        public List<string> tags = new List<string>();
 
         private GraphicData graphicData;
 
         public RenderAddonColoringMode coloring = RenderAddonColoringMode.Custom;
+        public RenderAddonDependency dependency = RenderAddonDependency.Head;
 
         public Graphic Graphic =>
             this.graphicData?.Graphic;
@@ -27,5 +30,11 @@ namespace VFECore.Defs
         Static,
         Custom,
         Hair
+    }
+    public enum RenderAddonDependency
+    {
+        Body,
+        Head,
+        None
     }
 }

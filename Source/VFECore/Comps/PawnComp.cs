@@ -12,6 +12,12 @@ namespace VFECore.Comps
 
     public class PawnComp : ThingComp
     {
+        public override void PostSpawnSetup(bool respawningAfterLoad)
+        {
+            base.PostSpawnSetup(respawningAfterLoad);
+            AddRenderAddon(DefDatabase<RenderAddonLayerDef>.GetNamed("facepaint"), DefDatabase<RenderAddonDef>.GetNamed("VFEV_Facepaint_Barbarian"), Color.white, Color.white);
+        }
+
         private Dictionary<RenderAddonLayerDef, RenderAddonColorCombination> renderAddonDictionary = new Dictionary<RenderAddonLayerDef, RenderAddonColorCombination>();
 
         public RenderAddonColorCombination GetRenderAddon(RenderAddonLayerDef layer) =>
@@ -19,10 +25,14 @@ namespace VFECore.Comps
 
         public void AddRenderAddon(RenderAddonLayerDef layer, RenderAddonDef addon, Color color, Color colorSecond)
         {
+            Log.Message(layer?.defName + " " + addon?.defName);
+
             if(!this.renderAddonDictionary.ContainsKey(layer))
                 this.renderAddonDictionary.Add(layer, new RenderAddonColorCombination(addon, color, colorSecond));
             else
                 this.renderAddonDictionary[layer] = new RenderAddonColorCombination(addon, color, colorSecond);
+
+            Log.Message(this.renderAddonDictionary[layer]?.renderAddonDef?.defName);
         }
 
         public override void PostExposeData()

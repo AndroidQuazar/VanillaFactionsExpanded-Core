@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Defs>
+    <VFECore.Defs.RenderAddonLayerDef>
+        <defName>facepaint</defName>
+        <offset>0.05</offset>
+    </VFECore.Defs.RenderAddonLayerDef>
+
+    <VFECore.Defs.RenderAddonDef>
+        <defName>VFEV_Facepaint_Barbarian</defName>
+        <label>Barbarian</label>
+        <layers>
+            <li>facepaint</li>
+        </layers>
+        <graphicData>
+            <shaderType>Transparent</shaderType>
+            <texPath>Things/Pawn/Humanlike/Facepaints/Barbarian</texPath>
+            <graphicClass>Graphic_Multi</graphicClass>
+        </graphicData>
+
+        <tags>
+            <li>Punk</li>
+            <li>Tribal</li>
+        </tags>
+        <!--workToStyle>150</workToStyle-->
+        
+    </VFECore.Defs.RenderAddonDef>
+</Defs>

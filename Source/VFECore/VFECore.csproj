@@ -18,7 +18,7 @@
     <DebugSymbols>false</DebugSymbols>
     <DebugType>none</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>..\..\1.1\Assemblies\</OutputPath>
+    <OutputPath>..\..\1.2\Assemblies\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
@@ -35,7 +35,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="0Harmony">
-      <HintPath>..\..\..\Harmony\Current\Assemblies\0Harmony.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\workshop\content\294100\2009463077\Current\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Assembly-CSharp, Version=1.1.7459.20020, Culture=neutral, processorArchitecture=MSIL">
@@ -100,6 +100,7 @@
     <Compile Include="HarmonyPatches\Patch_IncidentWorker_WandererJoin.cs" />
     <Compile Include="HarmonyPatches\Patch_ITab_Pawn_Gear.cs" />
     <Compile Include="HarmonyPatches\Patch_Pawn.cs" />
+    <Compile Include="HarmonyPatches\Patch_PawnRenderer.cs" />
     <Compile Include="HarmonyPatches\Patch_Pawn_ApparelTracker.cs" />
     <Compile Include="HarmonyPatches\Patch_PawnApparelGenerator.cs" />
     <Compile Include="HarmonyPatches\Patch_PawnGenerator.cs" />
