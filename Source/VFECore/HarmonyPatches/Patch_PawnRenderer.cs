@@ -35,13 +35,17 @@ namespace VFECore
                     {
                         yield return instruction; // portrait
                         yield return new CodeInstruction(opcode: OpCodes.Ldarg_1);
+                        yield return new CodeInstruction(opcode: OpCodes.Ldloc_2);                                                               //bodyvector aka vector
+                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_1);                                                               //rootLoc
+                        yield return new CodeInstruction(opcode: OpCodes.Ldloc_S, 11);                                                     //b
+                        yield return new CodeInstruction(opcode: OpCodes.Call,    AccessTools.Method(typeof(Vector3), "op_Addition")); // construction of head vector
                         yield return new CodeInstruction(opcode: OpCodes.Ldarg_0);
                         yield return new CodeInstruction(opcode: OpCodes.Ldfld, operand: AccessTools.Field(type: typeof(PawnRenderer), name: "pawn"));
-                        yield return new CodeInstruction(opcode: OpCodes.Ldloc_0);             // quat
-                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 4); // bodyfacing
-                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 9); //invisible
-                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 3); //renderbody
-                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 8); //headStump
+                        yield return new CodeInstruction(opcode: OpCodes.Ldloc_0);              // quat
+                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 4);  // bodyfacing
+                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 9);  //invisible
+                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 3);  //renderbody
+                        yield return new CodeInstruction(opcode: OpCodes.Ldarg_S, operand: 8);  //headStump
                         yield return new CodeInstruction(OpCodes.Call, AccessTools.Method(typeof(Patch_RenderPawnInternal), nameof(DrawCall)));
                         instruction = new CodeInstruction(instruction);
                         instruction.labels.Clear();
@@ -51,26 +55,29 @@ namespace VFECore
                 }
             }
 
-            public static void DrawCall(bool portrait, Vector3 vector, Pawn pawn, Quaternion quat, Rot4 rotation, bool invisible, bool renderBody, bool headStump)
+            public static void DrawCall(bool portrait, Vector3 vector, Vector3 bodyVector, Vector3 headVector, Pawn pawn, Quaternion quat, Rot4 rotation, bool invisible, bool renderBody, bool headStump)
             {
                 PawnComp pawnComp = pawn.GetComp<PawnComp>();
 
                 if (invisible || pawnComp == null)
                     return;
 
-
-                foreach (RenderAddonLayerDef layerDef in DefDatabase<RenderAddonLayerDef>.AllDefsListForReading)
+                foreach (KeyValuePair<RenderAddonLayerDef, RenderAddonColorCombination> colorCombination in pawnComp.renderAddonDictionary)
                 {
-                    RenderAddonColorCombination addon = pawnComp.GetRenderAddon(layerDef);
+                    RenderAddonColorCombination addon = colorCombination.Value;
                     if (addon != null)
                     {
+                        Vector3 vec = vector;
+
                         switch (addon.renderAddonDef.dependency)
                         {
                             case RenderAddonDependency.Body:
+                                vec = bodyVector;
                                 if (!renderBody)
                                     continue;
                                 break;
                             case RenderAddonDependency.Head:
+                                vec = headVector;
                                 if(headStump)
                                     continue;
                                 break;
@@ -78,10 +85,10 @@ namespace VFECore
                                 break;
                         }
 
-                        Vector3 layerOffset = new Vector3(0f, layerDef.offset, 0f);
+                        Vector3 layerOffset = new Vector3(0f, colorCombination.Key.offset, 0f);
 
-                        //                                                                                        Angle calculation to not pick the shortest, taken from Quaternion.Angle and modified
-                        GenDraw.DrawMeshNowOrLater(mesh: addon.Graphic.MeshAt(rot: rotation), loc: vector + (layerOffset + addon.renderAddonDef.Graphic.DrawOffset(rotation)).RotatedBy(angle: Mathf.Acos(f: Quaternion.Dot(a: Quaternion.identity, b: quat)) * 2f * 57.29578f),
+                        //                                                                                                                                              Angle calculation to not pick the shortest, taken from Quaternion.Angle and modified
+                        GenDraw.DrawMeshNowOrLater(mesh: addon.Graphic.MeshAt(rot: rotation), loc: vec + (layerOffset + addon.renderAddonDef.Graphic.DrawOffset(rotation)).RotatedBy(angle: Mathf.Acos(f: Quaternion.Dot(a: Quaternion.identity, b: quat)) * 2f * 57.29578f),
                                                    quat: Quaternion.AngleAxis(angle: 0f, axis: Vector3.up) * quat, mat: addon.Graphic.MatAt(rot: rotation), drawNow: portrait);
                     }
                 }

@@ -11,6 +11,8 @@ using HarmonyLib;
 
 namespace VFECore
 {
+    using Comps;
+    using Defs;
 
     public static class Patch_PawnGraphicSet
     {
@@ -31,6 +33,20 @@ namespace VFECore
                         if (medievalPackTexture != null)
                             __instance.packGraphic = GraphicDatabase.Get<Graphic_Multi>(__instance.nakedGraphic.path + factionDefExtension.packAnimalTexNameSuffix, ShaderDatabase.CutoutComplex, __instance.nakedGraphic.drawSize, __instance.pawn.Faction.Color);
                     }
+                }
+
+
+                PawnComp pawnComp = __instance.pawn.GetComp<PawnComp>();
+
+                if (pawnComp != null)
+                {
+                    pawnComp.Init();
+                    foreach (RenderAddonColorCombination addonColorCombination in pawnComp.renderAddonDictionary.Values)
+                        if (addonColorCombination.renderAddonDef.coloring == RenderAddonColoringMode.Hair)
+                        {
+                            addonColorCombination.color = __instance.pawn.story.hairColor;
+                            addonColorCombination.ClearGraphic();
+                        }
                 }
             }
 

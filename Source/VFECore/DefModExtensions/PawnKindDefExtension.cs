@@ -8,9 +8,13 @@ using RimWorld;
 
 namespace VFECore
 {
+    using Defs;
 
     public class PawnKindDefExtension : DefModExtension
     {
+        public List<RenderAddonData> renderAddons = new List<RenderAddonData>();
+
+
 
         private static readonly PawnKindDefExtension DefaultValues = new PawnKindDefExtension();
         public static PawnKindDefExtension Get(Def def) => def.GetModExtension<PawnKindDefExtension>() ?? DefaultValues;
@@ -47,4 +51,12 @@ namespace VFECore
 
     }
 
+    public class RenderAddonData
+    {
+        public RenderAddonLayerDef layer;
+        public float          chance = 0f;
+        public List<string>   tags   = new List<string>();
+        public ColorGenerator color;
+        public ColorGenerator colorTwo;
+    }
 }

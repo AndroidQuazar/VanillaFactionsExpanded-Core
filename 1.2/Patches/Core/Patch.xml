@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Patch>
+    <!-- Patch appropriate weapons to be usable with shields -->
+    <Operation Class="PatchOperationAddModExtension">
+        <xpath>Defs/PawnKindDef[defName="Colonist"]</xpath>
+        <value>
+            <li Class="VFECore.PawnKindDefExtension">
+                <renderAddons>
+                    <li>
+                        <layer>facepaint</layer>
+                        <tags>
+                            <li>Punk</li>
+                        </tags>
+                        <chance>75</chance>
+                        <color Class="ColorGenerator_Options">
+                            <options>
+                                <li>
+                                    <weight>10</weight>
+                                    <only>RGBA(0.000, 1.000, 0.000, 1.000)</only>
+                                </li>
+                                <li>
+                                    <weight>10</weight>
+                                    <only>RGBA(0.000, 0.500, 1.000, 1.000)</only>
+                                </li>
+                                <li>
+                                    <weight>10</weight>
+                                    <only>RGBA(0.000, 0.000, 1.000, 1.000)</only>
+                                </li>
+                            </options>
+                        </color>
+                    </li>
+                </renderAddons>
+            </li>
+        </value>
+    </Operation>
+</Patch>

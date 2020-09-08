@@ -12,27 +12,63 @@ namespace VFECore.Comps
 
     public class PawnComp : ThingComp
     {
-        public override void PostSpawnSetup(bool respawningAfterLoad)
-        {
-            base.PostSpawnSetup(respawningAfterLoad);
-            AddRenderAddon(DefDatabase<RenderAddonLayerDef>.GetNamed("facepaint"), DefDatabase<RenderAddonDef>.GetNamed("VFEV_Facepaint_Barbarian"), Color.white, Color.white);
-        }
+        private bool initialized = false;
 
-        private Dictionary<RenderAddonLayerDef, RenderAddonColorCombination> renderAddonDictionary = new Dictionary<RenderAddonLayerDef, RenderAddonColorCombination>();
+        public Dictionary<RenderAddonLayerDef, RenderAddonColorCombination> renderAddonDictionary = new Dictionary<RenderAddonLayerDef, RenderAddonColorCombination>();
+
+        public void Init()
+        {
+            if (this.initialized)
+                return;
+
+            this.initialized = true;
+            PawnKindDefExtension extension = (this.parent as Pawn)?.kindDef.GetModExtension<PawnKindDefExtension>();
+            if (extension != null)
+            {
+                if (!extension.renderAddons.NullOrEmpty())
+                    for (int i = 0; i < extension.renderAddons.Count; i++)
+                    {
+                        RenderAddonData addonData = extension.renderAddons[i];
+                        if (Rand.Range(0, 100) < addonData.chance)
+                        {
+                            HashSet<RenderAddonDef> addons = new HashSet<RenderAddonDef>();
+                            for (int index = 0; index < addonData.tags.Count; index++)
+                            {
+                                HashSet<RenderAddonDef> addonsTag = addonData.layer.renderAddons[addonData.tags[index]];
+                                foreach (RenderAddonDef renderAddonDef in addonsTag)
+                                    addons.Add(renderAddonDef);
+                            }
+                            RenderAddonDef addon = addons.RandomElementByWeight(def => def.weight);
+
+                            Color color       = Color.white;
+                            Color colorSecond = Color.white;
+                            switch (addon.coloring)
+                            {
+                                case RenderAddonColoringMode.Static:
+                                    color       = addon.Graphic.Color;
+                                    colorSecond = addon.Graphic.ColorTwo;
+                                    break;
+                                case RenderAddonColoringMode.Custom:
+                                    color       = addonData.color?.NewRandomizedColor() ?? Color.white;
+                                    colorSecond = addonData.colorTwo?.NewRandomizedColor() ?? Color.white;
+                                    break;
+                            }
+                            Log.Message(color.ToString());
+                            this.AddRenderAddon(addonData.layer, addon, color, colorSecond);
+                        }
+                    }
+            }
+        }
 
         public RenderAddonColorCombination GetRenderAddon(RenderAddonLayerDef layer) =>
             this.renderAddonDictionary.ContainsKey(layer) ? this.renderAddonDictionary[layer] : null;
 
         public void AddRenderAddon(RenderAddonLayerDef layer, RenderAddonDef addon, Color color, Color colorSecond)
         {
-            Log.Message(layer?.defName + " " + addon?.defName);
-
             if(!this.renderAddonDictionary.ContainsKey(layer))
                 this.renderAddonDictionary.Add(layer, new RenderAddonColorCombination(addon, color, colorSecond));
             else
                 this.renderAddonDictionary[layer] = new RenderAddonColorCombination(addon, color, colorSecond);
-
-            Log.Message(this.renderAddonDictionary[layer]?.renderAddonDef?.defName);
         }
 
         public override void PostExposeData()
@@ -57,6 +93,11 @@ namespace VFECore.Comps
             this.renderAddonDef = renderAddonDef;
             this.color = color;
             this.colorSecond = colorSecond;
+        }
+
+        public void ClearGraphic()
+        {
+            this.graphic = null;
         }
 
         public void ExposeData()

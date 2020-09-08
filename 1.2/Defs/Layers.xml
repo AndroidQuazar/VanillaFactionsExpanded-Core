@@ -2,7 +2,7 @@
 <Defs>
     <VFECore.Defs.RenderAddonLayerDef>
         <defName>facepaint</defName>
-        <offset>0.05</offset>
+        <offset>0.03</offset>
     </VFECore.Defs.RenderAddonLayerDef>
 
     <VFECore.Defs.RenderAddonDef>
@@ -15,13 +15,18 @@
             <shaderType>Transparent</shaderType>
             <texPath>Things/Pawn/Humanlike/Facepaints/Barbarian</texPath>
             <graphicClass>Graphic_Multi</graphicClass>
+            <drawOffsetNorth>(0,0,0)</drawOffsetNorth>
+            <drawOffsetEast>(0,0,0)</drawOffsetEast>
+            <drawOffsetSouth>(0,0,0)</drawOffsetSouth>
+            <drawOffsetWest>(0,0,0)</drawOffsetWest>
+            <color>RGB(255,255,255)</color> <!-- only used when coloring is set to Static -->
         </graphicData>
-
+        <coloring>Custom</coloring> <!-- Static, Custom, Hair -->
+        <dependency>Head</dependency> <!-- Body, Head, None -->
         <tags>
             <li>Punk</li>
             <li>Tribal</li>
         </tags>
-        <!--workToStyle>150</workToStyle-->
-        
+        <workToChange>150</workToChange>
     </VFECore.Defs.RenderAddonDef>
 </Defs>
